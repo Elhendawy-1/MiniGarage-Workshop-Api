@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MiniGarage.Api.Tests/MiniGarage.Api.Tests.csproj" />
+  <Project Path="MiniGarage.Api/MiniGarage.Api.csproj" />
+</Solution>

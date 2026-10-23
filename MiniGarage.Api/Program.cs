@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using MiniGarage.Api.Data;
+using MiniGarage.Api.Domain;
 using MiniGarage.Api.Middleware;
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -39,7 +40,10 @@ builder.WebHost.ConfigureKestrel(options =>
 // 1. Controller Services
 builder.Services.AddControllers();
 
-// 2. Database Context (Entity Framework Core with SQL Server)
+// 2. Deep Domain Module (Workshop Registry Seam)
+builder.Services.AddScoped<IWorkshopRegistry, WorkshopRegistry>();
+
+// 3. Database Context (Entity Framework Core with SQL Server)
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
