@@ -1,0 +1,35 @@
+title = "MiniGarage Secrets Scanning Configuration"
+
+[extend]
+# Inherit standard Gitleaks rules for AWS, GitHub, Slack, Generic Secrets, etc.
+useDefault = true
+
+[allowlist]
+description = "Allowlist for safe test fixtures and development mocks"
+paths = [
+    '''\.gitignore$''',
+    '''README\.md$''',
+    '''MiniGarage\.Api\.Tests/.*''',
+    '''MiniGarage\.Client/src/__tests__/.*'''
+]
+regexes = [
+    '''garage-admin-secret-2026''',
+    '''Server=localhost;Database=MiniGarageDb;Trusted_Connection=True'''
+]
+
+# Custom workshop rule to detect leaked production-like admin keys
+[[rules]]
+id = "garage-admin-api-key"
+description = "Detected hardcoded production Admin API Key in application source code"
+regex = '''(?i)(admin[-_]?key|x-admin-key)\s*[:=]\s*["']([a-zA-Z0-9_\-]{20,})["']'''
+secretGroup = 2
+entropy = 3.5
+keywords = [
+    "admin-key",
+    "x-admin-key"
+]
+
+[rules.allowlist]
+regexes = [
+    '''garage-admin-secret-2026'''
+]

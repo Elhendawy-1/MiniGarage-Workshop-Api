@@ -1,0 +1,4 @@
+# Gitleaks ignore list for legitimate fixtures and test configuration
+# Development local connection string fixture
+# Development mock key used strictly in automated test suite
+garage-admin-secret-2026
